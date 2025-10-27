@@ -1,7 +1,45 @@
 ---
+import "../pages/styles/global.css";
 import BaseLayout from '../layouts/BaseLayout.astro';
 const pageTitle = "Home Page";
+const identity = {
+  firstName: "Juan Meza",
+  country: "USA",
+  occupation: "Software Dev",
+  hobbies: ["guitar", "soccer", "video games"],
+};
+
+const skills = [
+  "HTML",
+  "CSS",
+  "TypeScript",
+  "Python",
+  "Scala",
+  "React",
+  "Astro",
+];
+
+const happy = true;
 ---
 <BaseLayout pageTitle={pageTitle}>
   <h2>My awesome blog subtitle</h2>
+      <ul>
+        <li>My name is {identity.firstName}.</li>
+        <li>
+          I live in {identity.country} and I work as a {identity.occupation}.
+        </li>
+        {
+          identity.hobbies.length >= 2 && (
+            <li>
+              Two of my hobbies are: {identity.hobbies[0]} and{" "}
+              {identity.hobbies[1]}
+            </li>
+          )
+        }
+      </ul>
+      <p>My skills are:</p>
+      <ul>
+        {skills.map((skill) => <li class="skill">{skill}</li>)}
+      </ul>
+      {happy && <p>I am happy to be learning Astro!</p>}
 </BaseLayout>
