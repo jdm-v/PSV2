@@ -1,0 +1,36 @@
+---
+import Card from "./Card/index.astro";
+---
+
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-6" title="About me">
+  <div class="flex flex-col gap-2">
+    <div class="text-sm font-light">
+      <p>As a software developer, some technologies I work with are:</p>
+      <ul class="list-disc list-inside">
+        <li>Python</li>
+        <li>Scala</li>
+        <li>TypeScript</li>
+        <li>React</li>
+        <li>Astro</li>
+        <li>Terraform</li>
+        <li>AWS</li>
+      </ul>
+    </div>
+    <p class="text-sm font-light">
+      I'm currently an Associate Software Engineer at JPMorgan Chase's
+      Commercial and Investment Bank division. Prior to this, I worked at
+      Boeing, Kuehne+Nagel, Carnegie Mellon University, and iD Tech Camps.
+      <br />
+      <br />
+      If you're interested in learning more about my experience, take a look at my
+      resume
+      <a
+        href="https://drive.google.com/file/d/1jCXeaYKaTqvF5frY6MT4of-zjLUqCOCH/view?usp=drive_link"
+        target="_blank"
+        class="font-bold"
+      >
+      here.
+      </a>
+    </p>
+  </div>
+</Card>

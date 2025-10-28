@@ -1,0 +1,29 @@
+---
+import Card from "./Card/index.astro";
+import { LINKS } from "../lib/constants";
+---
+
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-3">
+  <div class="h-full">
+    <header class="flex items-center">
+      <h1 class="text-black text-xl font-bold">
+        Contact me here!
+      </h1>
+    </header>
+    <address class="flex flex-col mt-4">
+      <h2 class="text-black">Contact Details</h2>
+      <p>contact@numberjuan.dev</p>
+    </address>
+    <div class="flex flex-col mt-4 w-fit">
+      <h2 class="text-black">Socials</h2>
+      <ul>
+        <li>
+          <a href={LINKS.linkedin} target="_blank">Linkedin</a>
+        </li>
+        <li>
+          <a href={LINKS.beli} target="_blank">Beli</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</Card>
