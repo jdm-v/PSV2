@@ -1,29 +1,39 @@
 ---
 import Card from "./Card/index.astro";
 import { LINKS } from "../lib/constants";
+import { Image } from "astro:assets";
 ---
 
 <Card colSpan="md:col-span-1" rowSpan="md:row-span-3">
-  <div class="h-full">
-    <header class="flex items-center">
-      <h1 class="text-black text-xl font-bold">
-        Contact me!
-      </h1>
-    </header>
-    <address class="flex flex-col mt-4">
-      <h2 class="text-black">Email</h2>
-      <a href="mailto:contact@numberjuan.dev">contact@numberjuan.dev</a>
-    </address>
-    <div class="flex flex-col mt-4 w-fit">
-      <h2 class="text-black">Socials</h2>
-      <ul>
-        <li>
-          <a href={LINKS.linkedin} target="_blank">Linkedin</a>
-        </li>
-        <li>
-          <a href={LINKS.beli} target="_blank">Beli</a>
-        </li>
-      </ul>
+  <div class="flex w-full h-full">
+    <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
+      <h1 class="text-black text-xl font-bold">Contact me!</h1>
+      <div class="flex flex-col h-full">
+        <address class="flex flex-col">
+          <h2 class="text-black">Email</h2>
+          <a href="mailto:contact@numberjuan.dev">contact@numberjuan.dev</a>
+        </address>
+        <div class="flex flex-col mt-4 w-fit">
+          <h2 class="text-black">Socials</h2>
+          <ul>
+            <li>
+              <a href={LINKS.linkedin} target="_blank">Linkedin</a>
+            </li>
+            <li>
+              <a href={LINKS.beli} target="_blank">Beli</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+    <div class="absolute bottom-0 right-0">
+      <Image
+        src="/me_with_mail.png"
+        alt="An image of me holding an envelope"
+        width={125}
+        height={170}
+        fit="fill"
+      />
+    </div>
 </Card>
