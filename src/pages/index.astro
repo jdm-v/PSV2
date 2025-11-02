@@ -53,7 +53,7 @@ const posts = (await getCollection("blog"))?.sort(
       colSpan="md:col-span-1"
       href="travel"
       rowSpan="md:row-span-2"
-      title="Countries I've visited so far"
+      title="Destination Map"
     >
       <div class="h-full w-full absolute inset-0 -z-10">
         <Globe client:load />
@@ -63,7 +63,7 @@ const posts = (await getCollection("blog"))?.sort(
       colSpan="md:col-span-1"
       href="/blog"
       rowSpan="md:row-span-2 flex gap-1"
-      title="Dlog"
+      title="Dev Diary"
     >
       <div class="flex flex-col gap-1">
         {
@@ -76,6 +76,7 @@ const posts = (await getCollection("blog"))?.sort(
               <p class="inline-block whitespace-nowrap text-xs">
                 {post.data.title}
               </p>
+              <br>
               {post.data.pubDate && (
                 <time
                   class="text-right tabular-nums text-xs"

@@ -26,8 +26,10 @@ const GlobeComponent = () => {
     "Poland",
     "Switzerland",
     "Denmark",
-    "Sweden"
+    "Sweden",
   ];
+
+  const nextCountries = ["Dominican Republic", "Brazil", "Vietnam", "Thailand", "Egypt"];
 
   onMount(() => {
     if (!mapContainer) return;
@@ -72,7 +74,11 @@ const GlobeComponent = () => {
       .append("path")
       .attr("d", (d: any) => pathGenerator(d as any))
       .attr("fill", (d: { properties: { name: string } }) =>
-        visitedCountries.includes(d.properties.name) ? "#E63946" : "white"
+        visitedCountries.includes(d.properties.name)
+          ? "#2932ddff"
+          : nextCountries.includes(d.properties.name)
+          ? "#f1df19ff"
+          : "white"
       )
       .style("stroke", "black")
       .style("stroke-width", 0.3)
