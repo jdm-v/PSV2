@@ -15,7 +15,8 @@ an idea of my interests as a dev outside of work!
 
 I'm current developing:
 + Sidequest Mod for Cyberpunk2077 using CD Projekt Red's WolvenKit
-+ LLM-Powered Manga Translation
++ LLM-Powered Manga/Comics Translation
++ Custom trending crypto trackers
 + Automated personal workflows
 + Personal content server
 + Custom modded gameboy
