@@ -1,7 +1,7 @@
 ---
 title: "Happy Halloween!"
 description: "This post details my thoughts on halloween and halloween-like things"
-pubDate: 2025-10-32
+pubDate: 2025-10-31
 category: "thoughts"
 draft: false
 ---
