@@ -2,7 +2,7 @@
 title: "Misadventures in Modding"
 description: "This post chronicles my journey into the world of game modding"
 pubDate: 2025-10-25
-category: "intro"
+category: "mods"
 draft: false
 ---
 

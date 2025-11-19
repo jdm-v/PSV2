@@ -50,12 +50,12 @@ const posts = (await getCollection("blog"))?.sort(
     <Now />
     <Card
       colorText="text-black"
-      colSpan="md:col-span-1"
+      colSpan="md:col-span-2"
       href="travel"
       rowSpan="md:row-span-2"
-      title="Destination Map"
     >
-      <div class="h-full w-full absolute inset-0 -z-10">
+      <h1 class="text-black text-xl font-bold p-4">Travel Map</h1>
+      <div class="h-full w-full absolute inset-20 -z-30">
         <Globe client:load />
       </div>
     </Card>
@@ -63,11 +63,11 @@ const posts = (await getCollection("blog"))?.sort(
       colSpan="md:col-span-1"
       href="/blog"
       rowSpan="md:row-span-2 flex gap-1"
-      title="Dev Diary"
     >
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-1 p-4">
+        <h1 class="text-black text-xl font-bold">Dev Diary</h1>
         {
-          posts?.slice(0, 3).map((post) => (
+          posts?.slice(0, 2).map((post) => (
             // <a
             //   class="text-sm md:text-base decoration-none flex justify-between"
             //   href={`/blog/${post.id}`}
