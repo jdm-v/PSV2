@@ -1,5 +1,5 @@
 ---
-title: "[RETRO] Pandemic Portfolio Project"
+title: "[RETRO] Machine Learning & Finance - Pandemic Portfolio Project"
 description: "See what I was learning about Machine Learning during the pandemic!"
 pubDate: 2026-01-30
 category: "projects"
