@@ -8,7 +8,7 @@ draft: false
 
 ### Trapped in a hot stuffy room in the Summer of 2020...
 
-I was given the opportunity to enroll in an experimental course being piloted by my undergraduate program, titled: "Machine Learning and Data for Finance". It was a generous effort by the university to make up for the sudden influx of cancelled in-person summer courses and internships. The course focused on both portfolio and machine learning strategies, and it led me to my simple but ambitious final project: could data from the 2009-2010 H1N1 (Swine Flu) pandemic be used to predict how financial markets might behave during COVID-19?. Here is a look at the findings from my Pandemic Portfolio Project.
+I was given the opportunity to enroll in an experimental course being piloted by Carnegie Mellon, titled: "Machine Learning and Data for Finance". It was a generous effort by my university to make up for the sudden influx of cancelled in-person summer courses and internships me and my peers faced. The course focused on both portfolio and machine learning strategies, and it led me to my simple but ambitious final project: could data from the 2009-2010 H1N1 (Swine Flu) pandemic be used to predict how financial markets might behave during COVID-19?. Here is a look at the findings from my Pandemic Portfolio Project (PPP).
 
 ## Methodology
 
@@ -51,6 +51,8 @@ If you find yourself investing during a global health crisis, our model suggests
 
 Looking back, this project (and course) was a much-needed relief for me during the rough COVID-19 summer. I definitely learned a lot within both the financial and technical realms, which I am also certain nudged me toward the direction of my current career. If I find myself with some more free time, I’d love to pull in more macroeconomic variables like GDP and unemployment rates to see how they change the model’s accuracy. Anyways, thanks for reading this and feel free to check out the code powering this project in this [github repo](https://github.com/jdm-v/pandemic_portfolio) I made.
 
-
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
