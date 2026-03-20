@@ -1,5 +1,5 @@
 ---
-title: "[RETRO] Machine Learning & Finance - Pandemic Portfolio Project"
+title: "[RETRO] Machine Learning & Finance - PPP"
 description: "See what I was learning about Machine Learning during the pandemic!"
 pubDate: 2026-01-30
 category: "projects"
@@ -8,7 +8,7 @@ draft: false
 
 ### Trapped in a hot stuffy room in the Summer of 2020...
 
-I was given the opportunity to enroll in an experimental course being piloted by my undergraduate program, titled: "Machine Learning and Data for Finance". It was a generous effort by the university to make up for the sudden influx of cancelled in-person summer courses and internships. The course focused on both portfolio and machine learning strategies, and it led me to my simple but ambitious final project: could data from the 2009-2010 H1N1 (Swine Flu) pandemic be used to predict how financial markets might behave during COVID-19?. Here is a look at my findings.
+I was given the opportunity to enroll in an experimental course being piloted by my undergraduate program, titled: "Machine Learning and Data for Finance". It was a generous effort by the university to make up for the sudden influx of cancelled in-person summer courses and internships. The course focused on both portfolio and machine learning strategies, and it led me to my simple but ambitious final project: could data from the 2009-2010 H1N1 (Swine Flu) pandemic be used to predict how financial markets might behave during COVID-19?. Here is a look at the findings from my Pandemic Portfolio Project.
 
 ## Methodology
 
