@@ -33,6 +33,7 @@ An Equal Weights portfolio (just putting 20% into everything) actually performed
 #### Loser
 The Sharpe Ratio portfolio, which usually tries to maximize "bang for your buck," actually performed the worst in this scenario.
 
+The following generated charts led us to these findings:
 ![Coefficients](../images/PPP_output.jpg)
 
 
@@ -49,3 +50,7 @@ Why? Because the training set for the H1N1 pandemic was relatively small, making
 If you find yourself investing during a global health crisis, our model suggests two clear priorities: Pharmaceuticals and Technology. On the flip side, we found that Leisure, Entertainment, and Private Equity were much riskier bets during those high-volatility windows.
 
 Looking back, this project (and course) was a much-needed relief for me during the rough COVID-19 summer. I definitely learned a lot within both the financial and technical realms, which I am also certain nudged me toward the direction of my current career. If I find myself with some more free time, I’d love to pull in more macroeconomic variables like GDP and unemployment rates to see how they change the model’s accuracy. Anyways, thanks for reading this and feel free to check out the code powering this project in this [github repo](https://github.com/jdm-v/pandemic_portfolio) I made.
+
+
+
+
