@@ -3,7 +3,6 @@ import Card from "./Card/index.astro";
 import Button from "./Button.astro";
 import { LINKS } from "../lib/constants";
 import { Icon } from "astro-icon/components";
-import Tooltip from "./Tooltip/index";
 import { Image } from "astro:assets";
 ---
 
@@ -11,7 +10,7 @@ import { Image } from "astro:assets";
   <div class="flex w-full h-full pt-6 pl-6">
     <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
       <div class="flex flex-col h-full">
-        <h6 class="text-sm font-light m-0 text-gray-500">Hello there!</h6>
+        <h6 class="text-sm font-light m-0 text-gray-500 dark:text-gray-400">Hello there!</h6>
         <p class="mr-2 font-light text-xl">
           I'm <b class="font-bold">Juan Diego</b>, a NYC-based software developer with
           a passion for all things Finance and Tech.
@@ -30,12 +29,13 @@ import { Image } from "astro:assets";
             <span class="sr-only">PSN Profile</span>
           </Button>
         </a>
-        <Tooltip client:visible>
-          <Button aria-label="easter egg btn">
-            <Icon class="h-6" name="ri:dice-line" />
-            <span class="sr-only">Easter egg button</span>
+        <div id="theme-toggle">
+          <Button aria-label="toggle theme">
+            <Icon class="h-6 dark:hidden" name="ri:moon-line" />
+            <Icon class="h-6 hidden dark:block" name="ri:sun-line" />
+            <span class="sr-only">Toggle theme</span>
           </Button>
-        </Tooltip>
+        </div>
       </div>
     </div>
   <Image
@@ -47,3 +47,11 @@ import { Image } from "astro:assets";
   />
   </div>
 </Card>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+</script>

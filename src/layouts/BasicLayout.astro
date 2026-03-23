@@ -103,9 +103,17 @@ const schema =
       set:html={JSON.stringify(schema)}
       type="application/ld+json"
     />
+    <script is:inline>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body
-    class="bg-white md:h-screen flex flex-col justify-center items-center"
+    class="bg-white dark:bg-darkslate-500 md:h-screen flex flex-col justify-center items-center"
   >
     <slot name="loader" />
     <slot />

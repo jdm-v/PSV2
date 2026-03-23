@@ -63,7 +63,7 @@ export default defineConfig({
     },
   },
   presets: [
-    presetWind3(),
+    presetWind3({ dark: 'class' }),
     presetWebFonts({
       provider: "fontshare",
       fonts: {
