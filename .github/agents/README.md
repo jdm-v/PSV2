@@ -27,7 +27,7 @@ TDD-first implementer who implements features red-green-refactor style
 
 | Command | Description |
 |---|---|
-| `@ironhide implement <id>` | Claims a beads task, implements it TDD-style, runs tests, and closes the task |
+| `@ironhide implement <task>` | Claims a task, implements it TDD-style, runs tests, and closes the task |
 | `@ironhide debug <description>` | Investigates and fixes a bug — writes a failing test first, then fixes |
 | `@ironhide refactor <target>` | Refactors a module or function — ensures tests pass before and after |
 | `@ironhide test <target>` | Writes or fixes tests for a module/function without changing production code |
