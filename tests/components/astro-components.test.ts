@@ -132,6 +132,21 @@ describe("Card/index.astro", () => {
   it("imports Content subcomponent", () => {
     expect(source).toContain('import Content from "./Content.astro"');
   });
+
+  // --- id-prop support (required for wiggle targeting) ---
+
+  it("declares id as an optional prop in the Props interface", () => {
+    expect(source).toContain("id?: string");
+  });
+
+  it("destructures the id prop from Astro.props", () => {
+    // The destructuring line must include `id`
+    expect(source).toMatch(/const\s*\{[^}]*\bid\b[^}]*\}\s*=\s*Astro\.props/);
+  });
+
+  it("forwards the id attribute to the root container div", () => {
+    expect(source).toContain("id={id}");
+  });
 });
 
 describe("Card/Content.astro", () => {

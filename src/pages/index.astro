@@ -19,6 +19,7 @@ const posts = (await getCollection("blog"))?.sort(
 <script>
   import { stagger, animate, type AnimationSequence } from "motion";
   import { loaderAnimation } from "../lib/constants";
+
   const cards = document.querySelectorAll(".card");
 
   const sequence = [
@@ -34,8 +35,61 @@ const posts = (await getCollection("blog"))?.sort(
     ],
   ];
 
-  animate(sequence as AnimationSequence);
+  // ── Wiggle helper ──────────────────────────────────────────────────────────
+  // Removes any in-flight wiggle class, forces a reflow so the browser
+  // registers the removal, then re-adds it.  The `animationend` listener
+  // cleans up with { once: true } so repeated hovers always retrigger cleanly.
+  function triggerWiggle(el: HTMLElement | null): void {
+    if (!el) return;
+    el.classList.remove("wiggle");
+    void el.offsetWidth; // force reflow
+    el.classList.add("wiggle");
+    el.addEventListener("animationend", () => el.classList.remove("wiggle"), {
+      once: true,
+    });
+  }
+
+  const devDiaryCard = document.getElementById("dev-diary-card");
+
+  // Hover: retrigger on every mouseenter
+  devDiaryCard?.addEventListener("mouseenter", () =>
+    triggerWiggle(devDiaryCard)
+  );
+
+  // On-load: fire wiggle once the entrance animation sequence has finished
+  const controls = animate(sequence as AnimationSequence);
+  controls.finished.then(() => triggerWiggle(devDiaryCard));
 </script>
+
+<!--
+  Wiggle animation for the Dev Diary card.
+
+  • @keyframes wiggle  — subtle horizontal oscillation (±5 px max) that damps
+    to rest over 0.5 s.  The final frame is translateX(0) which matches the
+    default resting position, so there is no visual snap when the animation
+    ends — even if Motion.js left a residual inline translateY(0%) style from
+    the entrance sequence.
+
+  • :global(#dev-diary-card.wiggle) — Astro scopes <style> blocks to the
+    current component by default.  Because the `.wiggle` class is added to a
+    <div> that lives inside the child <Card> component, we must opt out of
+    scoping for this one rule so it reaches across the component boundary.
+-->
+<style>
+  @keyframes wiggle {
+    0%   { transform: translateX(0); }
+    15%  { transform: translateX(-5px); }
+    30%  { transform: translateX(4px); }
+    45%  { transform: translateX(-3px); }
+    60%  { transform: translateX(2px); }
+    75%  { transform: translateX(-1px); }
+    100% { transform: translateX(0); }
+  }
+
+  :global(#dev-diary-card.wiggle) {
+    animation: wiggle 0.5s ease-in-out;
+  }
+</style>
 
 <Layout
   description="I'm a developer based in NYC, passionate about finance, tech, and their intersecton."
@@ -60,6 +114,7 @@ const posts = (await getCollection("blog"))?.sort(
       </div>
     </Card>
     <Card
+      id="dev-diary-card"
       colSpan="md:col-span-1"
       href="/blog"
       rowSpan="md:row-span-2 flex gap-1"
