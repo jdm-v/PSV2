@@ -31,7 +31,4 @@ export default defineConfig({
   },
   output: "server",
   adapter: netlify({ edgeMiddleware: true }),
-  vite: {
-    assetsInclude: "**/*.riv",
-  },
 });
