@@ -106,7 +106,7 @@ const posts = (await getCollection("blog"))?.sort(
       colorText="text-black dark:text-white"
       colSpan="md:col-span-2"
       href="travel"
-      rowSpan="md:row-span-2"
+      rowSpan="md:row-span-4"
     >
       <h1 class="text-black dark:text-white text-xl font-bold p-4">Travel Map</h1>
       <div class="h-full w-full absolute inset-20 -z-30">
@@ -117,12 +117,12 @@ const posts = (await getCollection("blog"))?.sort(
       id="dev-diary-card"
       colSpan="md:col-span-1"
       href="/blog"
-      rowSpan="md:row-span-2 flex gap-1"
+      rowSpan="md:row-span-4 flex gap-1"
     >
       <div class="flex flex-col gap-1 p-4">
         <h1 class="text-black dark:text-white text-xl font-bold">Dev Diary</h1>
         {
-          posts?.slice(0, 2).map((post) => (
+          posts?.slice(0, 5).map((post) => (
             // <a
             //   class="text-sm md:text-base decoration-none flex justify-between"
             //   href={`/blog/${post.id}`}
@@ -132,15 +132,6 @@ const posts = (await getCollection("blog"))?.sort(
                 {post.data.title}
               </p>
               <br>
-              {post.data.pubDate && (
-                <time
-                  class="text-right tabular-nums text-xs"
-                  data-date={post.data.pubDate.toISOString()}
-                  datetime={post.data.pubDate.toISOString()}
-                >
-                  {formatDate(post.data.pubDate)}
-                </time>
-              )}
             </div>
             // </a>
           ))
