@@ -16,7 +16,7 @@ Anyways, the reason for this post is that I happen to come across an old copy of
 
 <br>
 
-<iframe src="../../../public/TSF_TMT_Coverage.pdf" width="100%" height="600px"></iframe>
+<iframe src="/TSF_TMT_Coverage.pdf" width="100%" height="600px"></iframe>
 
 <br>
 <br>
