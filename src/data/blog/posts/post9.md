@@ -38,7 +38,7 @@ Of course, AIA isn't just a tool to be used during the course of the game. After
 ![Player Mode](../images/aia-game-visualizer.png)
 <br>
 <br>
-Stay tuned for more updates on this post! You can also check out the repo directly [here](https://github.com/achung123/aia-core) .
+So far, it's been an interesting experience watching our agents (who we named after the Xmen) develop the project over time. There are times where our intervention is required to clarify tasks or specify certain patterns, but for the most they've been quite impressive. Stay tuned for more updates on this post! You can also check out the repo directly [here](https://github.com/achung123/aia-core) .
 <br>
 <br>
 <br>
