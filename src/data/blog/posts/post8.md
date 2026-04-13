@@ -29,11 +29,11 @@ Special thanks to Professor Zaccharias, Team Callisto, and Mary for making this 
 <br>
 <br>
 
-![Candid of teammate while debugging the camera](../images/team_callisto_1.jpg)
+![Candid of teammate while debugging the camera](../images/team_callisto_1.JPG)
 <br>
 <br>
 
-![Candid of teammate while debugging the camera](../images/team_callisto_2.jpg)
+![Candid of teammate while debugging the camera](../images/team_callisto_2.JPG)
 
 <br>
 <br>
