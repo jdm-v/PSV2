@@ -35,7 +35,7 @@ Of course, AIA isn't just a tool to be used during the course of the game. After
 ![Player Mode](../images/aia-sessions.PNG)
 <br>
 <br>
-![Player Mode](../images/aia-game-visualizer.PNG)
+![Player Mode](../images/aia-game-visualizer.png)
 <br>
 <br>
 Stay tuned for more updates on this post! You can also check out the repo directly [here](https://github.com/achung123/aia-core) .
