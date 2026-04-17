@@ -1,7 +1,7 @@
 ---
 title: "[ACTIVE] All-In Analytics"
 description: Check out my current poker-themed project!
-pubDate: 2026-04-10
+pubDate: 2026-04-15
 category: projects
 draft: false
 ---
@@ -39,6 +39,22 @@ Of course, AIA isn't just a tool to be used during the course of the game. After
 <br>
 <br>
 So far, it's been an interesting experience watching our agents (who we named after the Xmen) develop the project over time. There are times where our intervention is required to clarify tasks or specify certain patterns, but for the most they've been quite impressive. Stay tuned for more updates on this post! You can also check out the repo directly [here](https://github.com/achung123/aia-core) .
+<br>
+<br>
+<br>
+It's been a couple weeks since I first posted this, and I wanted to just come back and quickly update this post with some new stuff the webapp does now! It's now entirely built with React + Typescript on the frontend, and it's still relying on Python for backend work. I think I've finally figured out my agentic-ai workflow to the point where I can comfortably let the agents work while I step out for a coffee or matcha. The latest update includes an improved landing page, a new "Personal Analytics" page with some charts and graphs, and a fun new superlatives page. Of course, there were many, many bugs that had to get squashed and generally speaking we're still figuring out certain aspects of the workflow that need more work, but it's coming together! I'm excited to eventually host a demo version of the webapp on my site. Stay tuned! As always, you can find the repo [here](https://github.com/achung123/aia-core) .
+<br>
+<br>
+![New home page](../images/aia-v2-landing.png)
+<br>
+<br>
+![New personal analytics page](../images/aia-personal-1.png)
+<br>
+<br>
+![New personal analytics page](../images/aia-personal-2.png)
+<br>
+<br>
+![New superlative page](../images/aia-badges.png)
 <br>
 <br>
 <br>
