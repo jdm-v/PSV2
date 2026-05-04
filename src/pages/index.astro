@@ -80,13 +80,9 @@ const posts = (await getCollection("blog"))?.sort(
     bentoStage.style.setProperty("--vinyl-label-color", savedVinylColor);
   }
   const bentoLabelImg = bentoStage?.querySelector<SVGImageElement>("#vinyl-label-img");
-  if (bentoLabelImg) {
-    if (savedVinylImage) {
-      bentoLabelImg.setAttribute("href", savedVinylImage);
-      bentoLabelImg.style.display = "";
-    } else {
-      bentoLabelImg.style.display = "none";
-    }
+  if (bentoLabelImg && savedVinylImage) {
+    bentoLabelImg.setAttribute("href", savedVinylImage);
+    bentoLabelImg.style.display = "";
   }
 </script>
 
