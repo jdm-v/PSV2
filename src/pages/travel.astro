@@ -26,7 +26,102 @@ import BasicLayout from "../layouts/BasicLayout.astro";
     class="text-black dark:text-white absolute hover:bg-neutral-800 top-4 left-4 px-4 py-2 border-1 border-solid border-neutral-600 rounded-lg"
     href="/">Back</a
   >
-  <Globe client:load />
+  <div class="globe-wrapper">
+    <h1 class="globe-title">My past and future travels</h1>
+    <Globe client:load />
+  </div>
+  <div class="legend">
+    <div class="legend-item">
+      <span class="legend-dot" style="background: #2932ddff;"></span>
+      <span class="legend-label">Visited</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot" style="background: #f1df19ff;"></span>
+      <span class="legend-label">Coming soon</span>
+    </div>
+  </div>
 </BasicLayout>
-<h1>Blue: Visited</h1>
-<h1>Yellow: Soon</h1>
+
+<style>
+  .globe-wrapper {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .globe-title {
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    font-weight: 700;
+    text-align: center;
+    color: #111;
+    letter-spacing: -0.02em;
+  }
+
+  :global(.dark) .globe-title {
+    color: #f0f0f0;
+  }
+
+  .legend {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+    padding: 0.5rem 1.25rem;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .legend {
+      position: fixed;
+      right: 2rem;
+      left: auto;
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 0.75rem;
+      border-radius: 1rem;
+      padding: 0.75rem 1.25rem;
+    }
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  .legend-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #111;
+  }
+
+  :global(.dark) .legend {
+    background: rgba(0, 0, 0, 0.35);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  :global(.dark) .legend-label {
+    color: #f0f0f0;
+  }
+</style>

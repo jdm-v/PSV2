@@ -39,3 +39,6 @@ And many more things I can't remember of the top off my head! Truly, 2025 was a 
 Anyways, I think I've blabbed enough about 2025. Perhaps I'll return to this post later on to include a few more details (and maybe pictures?) for my own future reference. It's easy to forget about some highlights, or forget when exactly they took place, so I can see these kinds of blog posts being somewhat useful going forward.
 
 In terms of goals for the new year... I'm still figuring that out! There's a few in mind that are more professional and personal in nature, so I'm not quite sure if I want to share them hear just quite yet... but maybe that'll change in the future! For now, thanks for reading this! 
+<br>
+<br>
+<br>

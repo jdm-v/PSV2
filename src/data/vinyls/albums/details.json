@@ -1,0 +1,50 @@
+[
+{
+    "title": "AM",
+    "artist": "Arctic Monkeys",
+    "color": "#ffffff",
+    "albumImage": "src/data/vinyls/images/albumCovers/AM.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/am_label.png",
+    "link": "https://www.youtube.com/watch?v=bpOSxM0rNPM"
+},
+{
+    "title": "Random Access Memories",
+    "artist": "Daft Punk",
+    "color": "#FFD700",
+    "albumImage": "src/data/vinyls/images/albumCovers/RAM.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/ram_label.png",
+    "link": "https://www.youtube.com/watch?v=a5uQMwRMHcs"
+},
+{
+    "title": "Sempiternal",
+    "artist": "Bring Me The Horizon",
+    "color": "#B59410",
+    "albumImage": "src/data/vinyls/images/albumCovers/Sempiternal.png",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/sempiternal_label.png",
+    "link": "https://www.youtube.com/watch?v=-k9qDxyxS3s"
+},
+{
+    "title": "Departure",
+    "artist": "Fat Jon and Nujabes",
+    "color": "#ADD8E6",
+    "albumImage": "src/data/vinyls/images/albumCovers/Departure.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/departure_label.png",
+    "link": "https://www.youtube.com/watch?v=qYcoJpqCha4"
+},
+{
+    "title": "Even In Arcadia",
+    "artist": "Sleep Token",
+    "color": "#FFC0CB",
+    "albumImage": "src/data/vinyls/images/albumCovers/EvenInArcadia.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/even_in_arcadia_label.png",
+    "link": "https://www.youtube.com/watch?v=JJpFTUP6fIo"
+},
+{
+    "title": "After Hours",
+    "artist": "The Weeknd",
+    "color": "#8B0000",
+    "albumImage": "src/data/vinyls/images/albumCovers/AfterHours.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/afterhours_label.png",
+    "link": "https://www.youtube.com/watch?v=1DpH-icPpl0"
+}
+]

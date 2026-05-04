@@ -1,0 +1,92 @@
+---
+// Spinning vinyl disc
+// Props:
+//   vinylImageSrc — optional URL for the centre label image (e.g. a vinyl-label photo).
+//                   Falls back to the --vinyl-label-color CSS variable when absent.
+interface Props {
+  vinylImageSrc?: string;
+}
+const { vinylImageSrc } = Astro.props;
+---
+
+<div class="vinyl-wrapper">
+  <svg
+    class="vinyl-disc"
+    viewBox="0 0 200 200"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <defs>
+      <!-- Clip the label image to the centre circle -->
+      <clipPath id="label-clip">
+        <circle cx="100" cy="100" r="36" />
+      </clipPath>
+    </defs>
+
+    <!-- Outer disc body -->
+    <circle cx="100" cy="100" r="97" fill="#111" />
+
+    <!-- Groove rings (alternating shades simulate light catching the grooves) -->
+    <circle cx="100" cy="100" r="91" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
+    <circle cx="100" cy="100" r="86" fill="none" stroke="#262626" stroke-width="1.6" />
+    <circle cx="100" cy="100" r="81" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
+    <circle cx="100" cy="100" r="76" fill="none" stroke="#262626" stroke-width="1.6" />
+    <circle cx="100" cy="100" r="71" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
+    <circle cx="100" cy="100" r="66" fill="none" stroke="#262626" stroke-width="1.6" />
+    <circle cx="100" cy="100" r="61" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
+    <circle cx="100" cy="100" r="56" fill="none" stroke="#262626" stroke-width="1.6" />
+    <circle cx="100" cy="100" r="51" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
+    <circle cx="100" cy="100" r="46" fill="none" stroke="#262626" stroke-width="1.6" />
+    <!-- Lead-in groove -->
+    <circle cx="100" cy="100" r="41" fill="none" stroke="#1d1d1d" stroke-width="1" />
+
+    <!-- Centre label — colour fill (visible when no image is set) -->
+    <circle style="fill: var(--vinyl-label-color, #c0392b); transition: fill 0.4s ease;" cx="100" cy="100" r="37" />
+    <circle style="fill: none; stroke: var(--vinyl-label-color, #c0392b); transition: stroke 0.4s ease;" cx="100" cy="100" r="34" stroke-width="0.9" opacity="0.55" />
+    <circle style="fill: none; stroke: var(--vinyl-label-color, #c0392b); transition: stroke 0.4s ease;" cx="100" cy="100" r="29" stroke-width="0.7" opacity="0.5" />
+
+    <!-- Decorative label text lines -->
+    <line style="stroke: var(--vinyl-label-color, #c0392b); transition: stroke 0.4s ease;" x1="73" y1="94"  x2="127" y2="94"  stroke-width="1"   opacity="0.45" />
+    <line style="stroke: var(--vinyl-label-color, #c0392b); transition: stroke 0.4s ease;" x1="73" y1="100" x2="127" y2="100" stroke-width="1.6" opacity="0.55" />
+    <line style="stroke: var(--vinyl-label-color, #c0392b); transition: stroke 0.4s ease;" x1="73" y1="106" x2="127" y2="106" stroke-width="1"   opacity="0.45" />
+
+    <!-- Centre label — image (renders over the colour fill when src is set) -->
+    <image
+      id="vinyl-label-img"
+      href={vinylImageSrc ?? ""}
+      x="64" y="64"
+      width="72" height="72"
+      clip-path="url(#label-clip)"
+      preserveAspectRatio="xMidYMid slice"
+      style={vinylImageSrc ? "" : "display:none"}
+    />
+
+    <!-- Centre spindle hole (always on top) -->
+    <circle cx="100" cy="100" r="5.5" fill="#0a0a0a" />
+  </svg>
+</div>
+
+<style>
+  .vinyl-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .vinyl-disc {
+    animation: spin-vinyl 4s linear infinite;
+    transform-origin: center;
+    filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.65));
+    width: 55%;
+    max-width: 140px;
+  }
+
+  /* Label colour — override --vinyl-label-color on a parent to change the label */
+
+  @keyframes spin-vinyl {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+</style>

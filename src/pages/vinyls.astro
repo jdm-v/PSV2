@@ -1,0 +1,304 @@
+---
+import { Image } from "astro:assets";
+import Vinyl from "../components/Vinyl.astro";
+import BasicLayout from "../layouts/BasicLayout.astro";
+import albumData from "../data/vinyls/albums/details.json";
+
+const albumCoverModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../data/vinyls/images/albumCovers/*",
+  { eager: true }
+);
+
+const vinylLabelModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../data/vinyls/images/vinylLabels/*",
+  { eager: true }
+);
+
+const albums = albumData.map((album) => {
+  const albumFilename = album.albumImage.split("/").pop();
+  const vinylFilename = album.vinylImage.split("/").pop();
+  const albumImg = albumCoverModules[`../data/vinyls/images/albumCovers/${albumFilename}`]?.default;
+  const vinylImg = vinylLabelModules[`../data/vinyls/images/vinylLabels/${vinylFilename}`]?.default;
+  return { ...album, albumImg, vinylImg };
+});
+---
+
+<script>
+  import { animate, type AnimationSequence } from "motion";
+
+  const sequence = [
+    [
+      ".loaderRef",
+      { opacity: [1, 0], pointerEvents: "none" },
+      { type: "spring", easing: "ease-out" },
+    ],
+  ];
+
+  animate(sequence as AnimationSequence);
+</script>
+
+<BasicLayout
+  description="A spinning vinyl disc and my record shelf"
+  page="travel"
+  title="Vinyls"
+>
+  <a
+    class="text-black dark:text-white absolute hover:bg-neutral-800 top-4 left-4 px-4 py-2 border-1 border-solid border-neutral-600 rounded-lg z-10"
+    href="/">Back</a
+  >
+
+  <div class="vinyls-page">
+    <!-- Currently playing section -->
+    <div class="now-playing">
+      <p class="now-playing-label">currently playing on my turntable...</p>
+      <a
+        id="vinyl-link"
+        href={albums[0].link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="vinyl-stage"
+      >
+        <div id="vinyl-stage">
+          <Vinyl vinylImageSrc={albums[0].vinylImg?.src} />
+        </div>
+      </a>
+    </div>
+
+    <!-- Record shelf -->
+    <div class="shelf-section">
+      <h2 class="shelf-title text-black dark:text-white">My Shelf</h2>
+      <div class="shelf">
+        {albums.map((album, i) => (
+          <div
+            class={`record-sleeve${i === 0 ? " selected" : ""}`}
+            style={`--sleeve-color: ${album.color}`}
+            data-color={album.color}
+            data-index={i}
+            data-vinyl-image={album.vinylImg?.src ?? ""}
+            data-link={album.link ?? ""}
+          >
+            {album.albumImg && (
+              <Image
+                src={album.albumImg}
+                alt={`${album.title} by ${album.artist}`}
+                class="sleeve-image"
+                width={120}
+                height={120}
+              />
+            )}
+            <div class="sleeve-face">
+              <p class="sleeve-title">{album.title}</p>
+              <p class="sleeve-artist">{album.artist}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="shelf-board" />
+    </div>
+  </div>
+</BasicLayout>
+
+<style>
+  .vinyls-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 5rem 1.5rem 3rem;
+    width: 100%;
+    max-width: 860px;
+  }
+
+  /* ── Now playing ── */
+  .now-playing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .now-playing-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .vinyl-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vinyl-stage :global(.vinyl-disc) {
+    width: 60vmin;
+    max-width: 420px;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+
+  .vinyl-stage:hover :global(.vinyl-disc) {
+    filter: drop-shadow(0 14px 36px var(--vinyl-label-color, rgba(0, 0, 0, 0.8))) brightness(1.1);
+    transform: scale(1.03);
+  }
+
+  /* ── Shelf ── */
+  .shelf-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .shelf-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .shelf {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    padding: 0.5rem 0.75rem 0;
+    width: 100%;
+  }
+
+  .shelf-board {
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(to bottom, #a07850, #7a5830);
+    border-radius: 3px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ── Individual record sleeve ── */
+  .record-sleeve {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background-color: var(--sleeve-color);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+
+  .record-sleeve:hover {
+    transform: translateY(-8px) rotate(-2deg);
+    box-shadow: 6px 10px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .record-sleeve.selected {
+    transform: translateY(-10px);
+    box-shadow: 0 0 0 3px var(--sleeve-color), 0 14px 28px rgba(0, 0, 0, 0.6);
+  }
+
+  .sleeve-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sleeve-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8px;
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
+  }
+
+  .sleeve-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sleeve-artist {
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+
+<script>
+  const STORAGE_KEY  = "vinyl-selected-color";
+  const INDEX_KEY    = "vinyl-selected-index";
+  const IMAGE_KEY    = "vinyl-selected-image";
+  const LINK_KEY     = "vinyl-selected-link";
+  const vinylStage   = document.getElementById("vinyl-stage");
+  const vinylLink    = document.getElementById("vinyl-link") as HTMLAnchorElement | null;
+  const labelImg     = document.getElementById("vinyl-label-img") as SVGImageElement | null;
+  const sleeves      = document.querySelectorAll<HTMLElement>(".record-sleeve");
+
+  function applySelection(sleeve: HTMLElement) {
+    const color      = sleeve.dataset.color ?? "";
+    const vinylImage = sleeve.dataset.vinylImage ?? "";
+    const link       = sleeve.dataset.link ?? "";
+
+    if (vinylStage && color) {
+      vinylStage.style.setProperty("--vinyl-label-color", color);
+    }
+
+    if (labelImg) {
+      if (vinylImage) {
+        labelImg.setAttribute("href", vinylImage);
+        labelImg.style.display = "";
+      } else {
+        labelImg.setAttribute("href", "");
+        labelImg.style.display = "none";
+      }
+    }
+
+    if (vinylLink && link) {
+      vinylLink.href = link;
+    }
+  }
+
+  const savedIndex   = parseInt(localStorage.getItem(INDEX_KEY) ?? "0", 10);
+  const targetSleeve = sleeves[savedIndex] ?? sleeves[0];
+
+  sleeves.forEach((s) => s.classList.remove("selected"));
+  if (targetSleeve) {
+    targetSleeve.classList.add("selected");
+    applySelection(targetSleeve);
+    const initColor = targetSleeve.dataset.color ?? "";
+    const initImage = targetSleeve.dataset.vinylImage ?? "";
+    const initLink  = targetSleeve.dataset.link ?? "";
+    if (initColor) localStorage.setItem(STORAGE_KEY, initColor);
+    localStorage.setItem(IMAGE_KEY, initImage);
+    localStorage.setItem(LINK_KEY, initLink);
+  }
+
+  sleeves.forEach((sleeve) => {
+    sleeve.addEventListener("click", () => {
+      const color = sleeve.dataset.color;
+      const index = sleeve.dataset.index;
+      const vinylImage = sleeve.dataset.vinylImage ?? "";
+      const link = sleeve.dataset.link ?? "";
+      if (color) localStorage.setItem(STORAGE_KEY, color);
+      if (index !== undefined) localStorage.setItem(INDEX_KEY, index);
+      localStorage.setItem(IMAGE_KEY, vinylImage);
+      localStorage.setItem(LINK_KEY, link);
+      sleeves.forEach((s) => s.classList.remove("selected"));
+      sleeve.classList.add("selected");
+      applySelection(sleeve);
+    });
+  });
+</script>

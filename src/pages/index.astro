@@ -6,8 +6,20 @@ import ContactsCard from "../components/ContactsCard.astro";
 import AboutMe from "../components/AboutMe.astro";
 import Now from "../components/Now.astro";
 import Globe from "../components/Globe";
+import Vinyl from "../components/Vinyl.astro";
+import albumData from "../data/vinyls/albums/details.json";
 import { getCollection } from "astro:content";
 import { formatDate } from "../lib/helpers";
+
+const vinylLabelModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../data/vinyls/images/vinylLabels/*",
+  { eager: true }
+);
+
+const firstAlbum = albumData[0];
+const firstVinylFilename = firstAlbum?.vinylImage.split("/").pop();
+const defaultVinylImageSrc =
+  vinylLabelModules[`../data/vinyls/images/vinylLabels/${firstVinylFilename}`]?.default?.src;
 
 const posts = (await getCollection("blog"))?.sort(
   (blogEntryA, blogEntryB) =>
@@ -59,6 +71,23 @@ const posts = (await getCollection("blog"))?.sort(
   // On-load: fire wiggle once the entrance animation sequence has finished
   const controls = animate(sequence as AnimationSequence);
   controls.finished.then(() => triggerWiggle(devDiaryCard));
+
+  // Restore persisted vinyl label colour and image on the bento card
+  const savedVinylColor = localStorage.getItem("vinyl-selected-color");
+  const savedVinylImage = localStorage.getItem("vinyl-selected-image");
+  const bentoStage = document.getElementById("bento-vinyl-stage");
+  if (savedVinylColor && bentoStage) {
+    bentoStage.style.setProperty("--vinyl-label-color", savedVinylColor);
+  }
+  const bentoLabelImg = bentoStage?.querySelector<SVGImageElement>("#vinyl-label-img");
+  if (bentoLabelImg) {
+    if (savedVinylImage) {
+      bentoLabelImg.setAttribute("href", savedVinylImage);
+      bentoLabelImg.style.display = "";
+    } else {
+      bentoLabelImg.style.display = "none";
+    }
+  }
 </script>
 
 <!--
@@ -89,6 +118,18 @@ const posts = (await getCollection("blog"))?.sort(
   :global(#dev-diary-card.wiggle) {
     animation: wiggle 0.5s ease-in-out;
   }
+
+  /* On mobile the bento vinyl card is taller, so allow the disc to grow */
+  :global(#bento-vinyl-stage .vinyl-disc) {
+    width: 55%;
+    max-width: 220px;
+  }
+
+  @media (min-width: 768px) {
+    :global(#bento-vinyl-stage .vinyl-disc) {
+      max-width: 140px;
+    }
+  }
 </style>
 
 <Layout
@@ -107,6 +148,7 @@ const posts = (await getCollection("blog"))?.sort(
       colSpan="md:col-span-2"
       href="travel"
       rowSpan="md:row-span-4"
+      height="min-h-72 md:min-h-0 h-full"
     >
       <h1 class="text-black dark:text-white text-xl font-bold p-4">Travel Map</h1>
       <div class="h-full w-full absolute inset-20 -z-30">
@@ -136,6 +178,18 @@ const posts = (await getCollection("blog"))?.sort(
             // </a>
           ))
         }
+      </div>
+    </Card>
+    <Card
+      colorText="text-black dark:text-white"
+      colSpan="md:col-span-1"
+      rowSpan="md:row-span-4"
+      href="/vinyls"
+      height="min-h-72 md:min-h-0 h-full"
+    >
+      <h1 class="text-black dark:text-white text-xl font-bold p-4">View Vinyls</h1>
+      <div id="bento-vinyl-stage" class="h-full w-full absolute inset-0 flex items-center justify-center -z-10">
+        <Vinyl vinylImageSrc={defaultVinylImageSrc} />
       </div>
     </Card>
   </main>

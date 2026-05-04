@@ -34,16 +34,18 @@ const GlobeComponent = () => {
   onMount(() => {
     if (!mapContainer) return;
 
-    const width = mapContainer.clientWidth;
-    const height = 500;
+    const SIZE = 500;
+    const cx = SIZE / 2;
+    const cy = SIZE / 2;
+    const scale = 230;
     const sensitivity = 75;
 
     let projection = d3
       .geoOrthographic()
-      .scale(250)
+      .scale(scale)
       .center([0, 0])
       .rotate([0, -30])
-      .translate([width / 2, height / 2]);
+      .translate([cx, cy]);
 
     const initialScale = projection.scale();
     let pathGenerator = d3.geoPath().projection(projection);
@@ -51,16 +53,18 @@ const GlobeComponent = () => {
     let svg = d3
       .select(mapContainer)
       .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+      .attr("viewBox", `0 0 ${SIZE} ${SIZE}`)
+      .attr("preserveAspectRatio", "xMidYMid meet")
+      .style("width", "100%")
+      .style("height", "auto");
 
     svg
       .append("circle")
       .attr("fill", "#EEE")
       .attr("stroke", "#000")
       .attr("stroke-width", "0.2")
-      .attr("cx", width / 2)
-      .attr("cy", height / 2)
+      .attr("cx", cx)
+      .attr("cy", cy)
       .attr("r", initialScale);
 
     let map = svg.append("g");
