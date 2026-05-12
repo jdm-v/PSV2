@@ -38,15 +38,33 @@ import { Image } from "astro:assets";
         </div>
       </div>
     </div>
-  <Image
-    src="/me.png"
-    alt="A full, uncropped image"
-    width={200}
-    height={400}
-    fit="fill"
-  />
+  <div class="intro-image-wrap">
+    <Image
+      src="/me_waving.png"
+      alt="A full, uncropped image"
+      width={847}
+      height={1264}
+      class="intro-image"
+    />
+  </div>
   </div>
 </Card>
+
+<style>
+  .intro-image-wrap {
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+    height: 100%;
+  }
+
+  .intro-image {
+    display: block;
+    height: 100%;
+    max-height: 300px;
+    width: auto;
+  }
+</style>
 
 <script>
   const toggle = document.getElementById('theme-toggle');
