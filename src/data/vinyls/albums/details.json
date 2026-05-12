@@ -46,5 +46,37 @@
     "albumImage": "src/data/vinyls/images/albumCovers/AfterHours.jpg",
     "vinylImage": "src/data/vinyls/images/vinylLabels/afterhours_label.png",
     "link": "https://www.youtube.com/watch?v=1DpH-icPpl0"
+},
+{
+    "title": "Starboy",
+    "artist": "The Weeknd",
+    "color": "#00008B",
+    "albumImage": "src/data/vinyls/images/albumCovers/Starboy.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/starboy_label.png",
+    "link": "https://www.youtube.com/watch?v=34Na4j8AVgA"
+},
+{
+    "title": "A Fever You Can't Sweat Out",
+    "artist": "Panic! At The Disco",
+    "color": "#8B0000",
+    "albumImage": "src/data/vinyls/images/albumCovers/AFeverYouCantSweatOut.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/afeveryoucantsweatout_label.png",
+    "link": "https://www.youtube.com/watch?v=vc6vs-l5dkc"
+},
+{
+    "title": "Love Yourself: Tear",
+    "artist": "BTS",
+    "color": "#FFB6C1",
+    "albumImage": "src/data/vinyls/images/albumCovers/LoveYourselfTear.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/loveyourselftear_label.png",
+    "link": "https://www.youtube.com/watch?v=7C2z4GqqS5E"
+},
+{
+    "title": "Take Me Back To Eden",
+    "artist": "Sleep Token",
+    "color": "#D3D3D3",
+    "albumImage": "src/data/vinyls/images/albumCovers/TakeMeBackToEden.jpg",
+    "vinylImage": "src/data/vinyls/images/vinylLabels/takemebacktoeden_label.png",
+    "link": "https://www.youtube.com/watch?v=wJNbtYdr-Hg"
 }
 ]

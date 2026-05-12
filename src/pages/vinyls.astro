@@ -21,6 +21,12 @@ const albums = albumData.map((album) => {
   const vinylImg = vinylLabelModules[`../data/vinyls/images/vinylLabels/${vinylFilename}`]?.default;
   return { ...album, albumImg, vinylImg };
 });
+
+// Mobile 3-row shelf split
+const MOBILE_ROW = 3;
+const mobileRow1 = albums.slice(0, MOBILE_ROW);
+const mobileRow2 = albums.slice(MOBILE_ROW, MOBILE_ROW * 2);
+const mobileRow3 = albums.slice(MOBILE_ROW * 2);
 ---
 
 <script>
@@ -66,34 +72,156 @@ const albums = albumData.map((album) => {
 
     <!-- Record shelf -->
     <div class="shelf-section">
-      <h2 class="shelf-title text-black dark:text-white">My Shelf</h2>
-      <div class="shelf">
-        {albums.map((album, i) => (
-          <div
-            class={`record-sleeve${i === 0 ? " selected" : ""}`}
-            style={`--sleeve-color: ${album.color}`}
-            data-color={album.color}
-            data-index={i}
-            data-vinyl-image={album.vinylImg?.src ?? ""}
-            data-link={album.link ?? ""}
-          >
-            {album.albumImg && (
-              <Image
-                src={album.albumImg}
-                alt={`${album.title} by ${album.artist}`}
-                class="sleeve-image"
-                width={120}
-                height={120}
-              />
-            )}
-            <div class="sleeve-face">
-              <p class="sleeve-title">{album.title}</p>
-              <p class="sleeve-artist">{album.artist}</p>
+      <div class="shelf-header">
+        <h2 class="shelf-title text-black dark:text-white">My Shelf</h2>
+        <div class="shelf-nav">
+          <button class="shelf-nav-btn" id="shelf-prev" aria-label="Scroll left">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="shelf-nav-btn" id="shelf-next" aria-label="Scroll right">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="shelf-scroll-wrapper">
+        <div class="shelf-fade shelf-fade-left"></div>
+        <div class="shelf" id="shelf-track">
+          {albums.map((album, i) => (
+            <div
+              class={`record-sleeve${i === 0 ? " selected" : ""}`}
+              style={`--sleeve-color: ${album.color}`}
+              data-color={album.color}
+              data-index={i}
+              data-vinyl-image={album.vinylImg?.src ?? ""}
+              data-link={album.link ?? ""}
+            >
+              {album.albumImg && (
+                <Image
+                  src={album.albumImg}
+                  alt={`${album.title} by ${album.artist}`}
+                  class="sleeve-image"
+                  width={120}
+                  height={120}
+                />
+              )}
+              <div class="sleeve-face">
+                <p class="sleeve-title">{album.title}</p>
+                <p class="sleeve-artist">{album.artist}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div class="shelf-fade shelf-fade-right"></div>
       </div>
       <div class="shelf-board" />
+    </div>
+
+    <!-- Mobile shelves: 3 rows, mobile only -->
+    <div class="mobile-shelves">
+      <div class="shelf-header">
+        <h2 class="shelf-title text-black dark:text-white">My Shelf</h2>
+      </div>
+
+      <!-- Row 1 -->
+      <div class="mobile-shelf-row">
+        <div class="shelf shelf-no-scroll">
+          {mobileRow1.map((album, localIdx) => (
+            <div
+              class={`record-sleeve${localIdx === 0 ? " selected" : ""}`}
+              style={`--sleeve-color: ${album.color}`}
+              data-color={album.color}
+              data-index={localIdx}
+              data-vinyl-image={album.vinylImg?.src ?? ""}
+              data-link={album.link ?? ""}
+            >
+              {album.albumImg && (
+                <Image
+                  src={album.albumImg}
+                  alt={`${album.title} by ${album.artist}`}
+                  class="sleeve-image"
+                  width={96}
+                  height={96}
+                />
+              )}
+              <div class="sleeve-face">
+                <p class="sleeve-title">{album.title}</p>
+                <p class="sleeve-artist">{album.artist}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="shelf-board" />
+      </div>
+
+      <!-- Row 2 -->
+      <div class="mobile-shelf-row">
+        <div class="shelf shelf-no-scroll">
+          {mobileRow2.map((album, localIdx) => (
+            <div
+              class="record-sleeve"
+              style={`--sleeve-color: ${album.color}`}
+              data-color={album.color}
+              data-index={MOBILE_ROW + localIdx}
+              data-vinyl-image={album.vinylImg?.src ?? ""}
+              data-link={album.link ?? ""}
+            >
+              {album.albumImg && (
+                <Image
+                  src={album.albumImg}
+                  alt={`${album.title} by ${album.artist}`}
+                  class="sleeve-image"
+                  width={96}
+                  height={96}
+                />
+              )}
+              <div class="sleeve-face">
+                <p class="sleeve-title">{album.title}</p>
+                <p class="sleeve-artist">{album.artist}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="shelf-board" />
+      </div>
+
+      <!-- Row 3 (slider for remaining albums) -->
+      <div class="mobile-shelf-row">
+        <div class="shelf-scroll-wrapper">
+          <div class="shelf-fade shelf-fade-left" id="m-fade-left"></div>
+          <div class="shelf" id="mobile-shelf-track">
+            {mobileRow3.map((album, localIdx) => (
+              <div
+                class="record-sleeve"
+                style={`--sleeve-color: ${album.color}`}
+                data-color={album.color}
+                data-index={MOBILE_ROW * 2 + localIdx}
+                data-vinyl-image={album.vinylImg?.src ?? ""}
+                data-link={album.link ?? ""}
+              >
+                {album.albumImg && (
+                  <Image
+                    src={album.albumImg}
+                    alt={`${album.title} by ${album.artist}`}
+                    class="sleeve-image"
+                    width={96}
+                    height={96}
+                  />
+                )}
+                <div class="sleeve-face">
+                  <p class="sleeve-title">{album.title}</p>
+                  <p class="sleeve-artist">{album.artist}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div class="shelf-fade shelf-fade-right" id="m-fade-right"></div>
+        </div>
+        <div class="shelf-board" />
+      </div>
     </div>
   </div>
 </BasicLayout>
@@ -152,9 +280,75 @@ const albums = albumData.map((album) => {
     gap: 0.75rem;
   }
 
+  .shelf-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .shelf-title {
     font-size: 1.1rem;
     font-weight: 700;
+  }
+
+  .shelf-nav {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .shelf-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #4b5563;
+    background: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .shelf-nav-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-color: #9ca3af;
+  }
+
+  .shelf-scroll-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .shelf-fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.2s ease;
+  }
+
+  .shelf-fade-left {
+    left: 0;
+    background: linear-gradient(to right, var(--shelf-bg, #fff), transparent);
+  }
+
+  .shelf-fade-right {
+    right: 0;
+    background: linear-gradient(to left, var(--shelf-bg, #fff), transparent);
+  }
+
+  :global(.dark) .shelf-fade-left {
+    background: linear-gradient(to right, #171717, transparent);
+  }
+
+  :global(.dark) .shelf-fade-right {
+    background: linear-gradient(to left, #171717, transparent);
   }
 
   .shelf {
@@ -163,6 +357,24 @@ const albums = albumData.map((album) => {
     align-items: flex-end;
     padding: 0.5rem 0.75rem 0;
     width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+  }
+
+  .shelf::-webkit-scrollbar {
+    height: 2px;
+  }
+
+  .shelf::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .shelf::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 1px;
   }
 
   .shelf-board {
@@ -235,6 +447,98 @@ const albums = albumData.map((album) => {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  /* ── Mobile shelves (3-row layout, hidden on desktop) ── */
+  .mobile-shelves {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mobile-shelf-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Static rows: let the selected lift show without clipping */
+  .shelf-no-scroll {
+    overflow: visible;
+    padding-top: 0.75rem;
+    justify-content: center;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .vinyls-page {
+      padding: 6rem 1rem 3rem;
+      gap: 2rem;
+    }
+
+    /* Slightly smaller disc so the shelf is still visible above the fold */
+    .vinyl-stage :global(.vinyl-disc) {
+      width: 52vmin;
+      max-width: 280px;
+    }
+
+    .now-playing-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Smaller sleeves — still comfortable touch targets, more fit per screen */
+    .record-sleeve {
+      width: 96px;
+      height: 96px;
+    }
+
+    /* Swap to mobile 3-row shelves, hide desktop single shelf */
+    .shelf-section {
+      display: none;
+    }
+
+    .mobile-shelves {
+      display: flex;
+    }
+
+    /* Nav buttons are redundant on touch — hide them, rely on swipe + fades */
+    .shelf-nav {
+      display: none;
+    }
+
+    .shelf {
+      /* Snap to each sleeve for a smoother swipe feel on mobile */
+      scroll-snap-type: x mandatory;
+      gap: 0.75rem;
+      /* Extra top padding so the selected-sleeve lift isn't clipped */
+      padding: 0.75rem 0.5rem 0;
+    }
+
+    /* Align row 3's first album directly below row 2's first album.
+       Formula mirrors the flexbox centering offset of the static rows:
+       left-pad = static-shelf-left-padding + (row-width - static-padding - 3×sleeve - 2×gap) / 2 */
+    #mobile-shelf-track {
+      justify-content: flex-start;
+      padding-left: calc(0.5rem + (100% - 1rem - 3 * 96px - 2 * 0.75rem) / 2);
+    }
+
+    .record-sleeve {
+      scroll-snap-align: start;
+    }
+
+    .shelf-fade {
+      width: 32px;
+    }
+
+    .shelf-title {
+      font-size: 1rem;
+    }
+
+    .shelf-board {
+      height: 10px;
+    }
+  }
 </style>
 
 <script>
@@ -271,12 +575,22 @@ const albums = albumData.map((album) => {
     }
   }
 
-  const savedIndex   = parseInt(localStorage.getItem(INDEX_KEY) ?? "0", 10);
-  const targetSleeve = sleeves[savedIndex] ?? sleeves[0];
+  // Initialise selection by data-index (works across desktop + all mobile rows)
+  const savedIndex    = parseInt(localStorage.getItem(INDEX_KEY) ?? "0", 10);
+  const savedIndexStr = savedIndex.toString();
+  let   targetSleeve: HTMLElement | undefined;
 
-  sleeves.forEach((s) => s.classList.remove("selected"));
+  sleeves.forEach((s) => {
+    if (s.dataset.index === savedIndexStr) {
+      s.classList.add("selected");
+      if (!targetSleeve) targetSleeve = s;
+    } else {
+      s.classList.remove("selected");
+    }
+  });
+
+  if (!targetSleeve) targetSleeve = sleeves[0] as HTMLElement | undefined;
   if (targetSleeve) {
-    targetSleeve.classList.add("selected");
     applySelection(targetSleeve);
     const initColor = targetSleeve.dataset.color ?? "";
     const initImage = targetSleeve.dataset.vinylImage ?? "";
@@ -296,9 +610,57 @@ const albums = albumData.map((album) => {
       if (index !== undefined) localStorage.setItem(INDEX_KEY, index);
       localStorage.setItem(IMAGE_KEY, vinylImage);
       localStorage.setItem(LINK_KEY, link);
-      sleeves.forEach((s) => s.classList.remove("selected"));
-      sleeve.classList.add("selected");
+      // Mark all sleeves with the same data-index (desktop + every mobile row)
+      sleeves.forEach((s) => {
+        if (s.dataset.index === index) {
+          s.classList.add("selected");
+        } else {
+          s.classList.remove("selected");
+        }
+      });
       applySelection(sleeve);
     });
   });
+
+  // ── Shelf slider navigation ──
+  const shelfTrack  = document.getElementById("shelf-track") as HTMLElement | null;
+  const prevBtn     = document.getElementById("shelf-prev") as HTMLButtonElement | null;
+  const nextBtn     = document.getElementById("shelf-next") as HTMLButtonElement | null;
+  const fadeLeft    = document.querySelector<HTMLElement>(".shelf-fade-left");
+  const fadeRight   = document.querySelector<HTMLElement>(".shelf-fade-right");
+
+  const SCROLL_AMOUNT = 260; // px per button click
+
+  function updateFades() {
+    if (!shelfTrack) return;
+    const { scrollLeft, scrollWidth, clientWidth } = shelfTrack;
+    if (fadeLeft)  fadeLeft.style.opacity  = scrollLeft > 4 ? "1" : "0";
+    if (fadeRight) fadeRight.style.opacity = scrollLeft + clientWidth < scrollWidth - 4 ? "1" : "0";
+  }
+
+  prevBtn?.addEventListener("click", () => {
+    shelfTrack?.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
+  });
+  nextBtn?.addEventListener("click", () => {
+    shelfTrack?.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
+  });
+
+  shelfTrack?.addEventListener("scroll", updateFades, { passive: true });
+
+  // ── Mobile row-3 slider fades ──
+  const mobileShelfTrack = document.getElementById("mobile-shelf-track") as HTMLElement | null;
+  const mFadeLeft        = document.getElementById("m-fade-left");
+  const mFadeRight       = document.getElementById("m-fade-right");
+
+  function updateMobileFades() {
+    if (!mobileShelfTrack) return;
+    const { scrollLeft, scrollWidth, clientWidth } = mobileShelfTrack;
+    if (mFadeLeft)  mFadeLeft.style.opacity  = scrollLeft > 4 ? "1" : "0";
+    if (mFadeRight) mFadeRight.style.opacity = scrollLeft + clientWidth < scrollWidth - 4 ? "1" : "0";
+  }
+
+  mobileShelfTrack?.addEventListener("scroll", updateMobileFades, { passive: true });
+
+  // Initialise fade visibility after layout
+  requestAnimationFrame(() => { updateFades(); updateMobileFades(); });
 </script>
