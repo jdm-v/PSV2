@@ -3,7 +3,6 @@ import Card from "./Card/index.astro";
 import Button from "./Button.astro";
 import { LINKS } from "../lib/constants";
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
 ---
 
 <Card colSpan="md:col-span-3" rowSpan="md:row-span-4">
@@ -39,11 +38,9 @@ import { Image } from "astro:assets";
       </div>
     </div>
   <div class="intro-image-wrap">
-    <Image
-      src="/me_waving.png"
+    <img
+      src="/me_waving.gif"
       alt="A full, uncropped image"
-      width={847}
-      height={1264}
       class="intro-image"
     />
   </div>
@@ -61,7 +58,10 @@ import { Image } from "astro:assets";
   .intro-image {
     display: block;
     max-height: 300px;
+    max-width: 100%;
     width: auto;
+    height: auto;
+    object-fit: contain;
   }
 </style>
 
