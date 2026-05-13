@@ -26,17 +26,12 @@ const { vinylImageSrc } = Astro.props;
     <!-- Outer disc body -->
     <circle cx="100" cy="100" r="97" fill="#111" />
 
-    <!-- Groove rings (alternating shades simulate light catching the grooves) -->
+    <!-- Groove rings -->
     <circle cx="100" cy="100" r="91" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
-    <circle cx="100" cy="100" r="86" fill="none" stroke="#262626" stroke-width="1.6" />
     <circle cx="100" cy="100" r="81" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
-    <circle cx="100" cy="100" r="76" fill="none" stroke="#262626" stroke-width="1.6" />
     <circle cx="100" cy="100" r="71" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
-    <circle cx="100" cy="100" r="66" fill="none" stroke="#262626" stroke-width="1.6" />
     <circle cx="100" cy="100" r="61" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
-    <circle cx="100" cy="100" r="56" fill="none" stroke="#262626" stroke-width="1.6" />
     <circle cx="100" cy="100" r="51" fill="none" stroke="#1d1d1d" stroke-width="2.2" />
-    <circle cx="100" cy="100" r="46" fill="none" stroke="#262626" stroke-width="1.6" />
     <!-- Lead-in groove -->
     <circle cx="100" cy="100" r="41" fill="none" stroke="#1d1d1d" stroke-width="1" />
 
@@ -63,6 +58,14 @@ const { vinylImageSrc } = Astro.props;
 
     <!-- Centre spindle hole (always on top) -->
     <circle cx="100" cy="100" r="5.5" fill="#0a0a0a" />
+
+    <!-- Vinyl template overlay -->
+    <image
+      href="/vinyl_template.png"
+      x="0" y="0"
+      width="200" height="200"
+      preserveAspectRatio="xMidYMid meet"
+    />
   </svg>
 </div>
 
