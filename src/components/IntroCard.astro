@@ -39,11 +39,19 @@ import { Icon } from "astro-icon/components";
     </div>
   <div class="intro-image-wrap">
     <img
+      id="me-waving"
       src="/me_waving.gif"
       alt="A full, uncropped image"
       class="intro-image"
     />
   </div>
+
+<script>
+  const img = document.getElementById('me-waving') as HTMLImageElement | null;
+  if (img) {
+    img.src = `/me_waving.gif?t=${Date.now()}`;
+  }
+</script>
   </div>
 </Card>
 
