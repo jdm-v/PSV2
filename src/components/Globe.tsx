@@ -1,9 +1,18 @@
-import { onMount } from "solid-js";
+import { onMount, createSignal, Show } from "solid-js";
 import * as d3 from "d3";
 import worldData from "../lib/world.json";
 
 const GlobeComponent = () => {
   let mapContainer: HTMLDivElement | undefined;
+  const [paused, setPaused] = createSignal(false);
+  const [tooltip, setTooltip] = createSignal<{ name: string; x: number; y: number } | null>(null);
+  let tooltipTimer: ReturnType<typeof setTimeout> | undefined;
+
+  const showTooltip = (value: { name: string; x: number; y: number }) => {
+    clearTimeout(tooltipTimer);
+    setTooltip(value);
+    tooltipTimer = setTimeout(() => setTooltip(null), 3000);
+  };
 
   const visitedCountries = [
     "France",
@@ -86,9 +95,47 @@ const GlobeComponent = () => {
       )
       .style("stroke", "black")
       .style("stroke-width", 0.3)
-      .style("opacity", 0.8);
+      .style("opacity", 0.8)
+      .style("cursor", (d: { properties: { name: string } }) =>
+        visitedCountries.includes(d.properties.name) ? "pointer" : "default"
+      )
+      .on("click", function (event: MouseEvent, d: any) {
+        if (!visitedCountries.includes(d.properties.name)) return;
+        const containerRect = mapContainer!.getBoundingClientRect();
+        const svgEl = mapContainer!.querySelector("svg")!;
+        const svgRect = svgEl.getBoundingClientRect();
+        const scaleX = SIZE / svgRect.width;
+        const scaleY = SIZE / svgRect.height;
+        const centroid = pathGenerator.centroid(d as any);
+        if (!centroid || isNaN(centroid[0])) return;
+        const x = centroid[0] / scaleX + (svgRect.left - containerRect.left);
+        const y = centroid[1] / scaleY + (svgRect.top - containerRect.top);
+        showTooltip({ name: d.properties.name, x, y });
+      });
+
+    svg.select("circle")
+      .style("cursor", "pointer");
+
+    const svgNode = svg.node() as SVGSVGElement;
+
+    const isOverGlobe = (event: MouseEvent | Touch) => {
+      const pt = svgNode.createSVGPoint();
+      pt.x = event.clientX;
+      pt.y = event.clientY;
+      const svgP = pt.matrixTransform(svgNode.getScreenCTM()!.inverse());
+      const dx = svgP.x - cx;
+      const dy = svgP.y - cy;
+      return Math.sqrt(dx * dx + dy * dy) <= initialScale;
+    };
+
+    svg
+      .on("mousemove", (event: MouseEvent) => setPaused(isOverGlobe(event)))
+      .on("mouseleave", () => setPaused(false))
+      .on("touchstart", (event: TouchEvent) => { if (isOverGlobe(event.touches[0])) setPaused(true); })
+      .on("touchend", () => setPaused(false));
 
     d3.timer(() => {
+      if (paused()) return;
       const rotate = projection.rotate();
       const k = sensitivity / projection.scale();
       projection.rotate([rotate[0] - 1 * k, rotate[1]]);
@@ -97,8 +144,21 @@ const GlobeComponent = () => {
   });
 
   return (
-    <div class="flex flex-col text-black justify-center items-center w-full h-full">
-      <div class="w-full" ref={mapContainer}></div>
+    <div
+      class="flex flex-col text-black justify-center items-center w-full h-full"
+      style="position: relative;"
+      onClick={(e) => { if ((e.target as SVGElement).tagName !== "path") setTooltip(null); }}
+    >
+      <div class="w-full" ref={mapContainer} />
+      <Show when={tooltip()}>
+        {(t) => (
+          <div
+            style={`position: absolute; left: ${t().x}px; top: ${t().y}px; transform: translate(-50%, -110%); background: rgba(0,0,0,0.75); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; pointer-events: none; z-index: 10;`}
+          >
+            {t().name}
+          </div>
+        )}
+      </Show>
     </div>
   );
 };
